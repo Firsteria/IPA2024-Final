@@ -1,7 +1,7 @@
 #######################################################################################
-# Yourname:
-# Your student ID:
-# Your GitHub Repo: 
+# Yourname: ปิยะภัทร ไชยวรรณะ
+# Your student ID: 660701119
+# Your GitHub Repo: https://github.com/Firsteria/IPA2024-Final.git
 
 #######################################################################################
 # 1. Import libraries for API requests, JSON formatting, time, os, (restconf_final or netconf_final), netmiko_final, and ansible_final.
