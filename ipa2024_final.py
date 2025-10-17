@@ -18,7 +18,7 @@ ACCESS_TOKEN = os.environ."<!!!REPLACEME with os.environ method and environment 
 
 # Defines a variable that will hold the roomId
 roomIdToGetMessages = (
-    "<!!!REPLACEME with roomID of the IPA2024 Webex Teams room!!!>"
+    ""
 )
 
 while True:
