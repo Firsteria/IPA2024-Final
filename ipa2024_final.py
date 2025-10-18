@@ -12,6 +12,9 @@ import restconf_final
 from dotenv import load_dotenv
 import os
 import time
+import netmiko_final
+import ansible_final
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 load_dotenv()
 #######################################################################################
@@ -89,9 +92,12 @@ while True:
             responseMessage = restconf_final.disable()  
         elif command == "status":
             responseMessage = restconf_final.status()  
-        #     <!!!REPLACEME with code for gigabit_status command!!!>
-        # elif command == "showrun":
-        #     <!!!REPLACEME with code for showrun command!!!>
+        elif command == "gigabit_status":
+            responseMessage = netmiko_final.gigabit_status()
+        elif command == "showrun":
+            student_id = '66070119'  # Replace with your student ID
+            router_name = 'R1-Exam'  # Replace with your router name
+            responseMessage = ansible_final.showrun(student_id, router_name)
         else:
             responseMessage = "Error: No command or unknown command"
         
