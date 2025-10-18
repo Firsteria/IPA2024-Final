@@ -41,8 +41,10 @@ def create():
         )
     
     
-
-    if(resp.status_code >= 200 and resp.status_code <= 299):
+    if(resp.status_code == 204):
+        print(resp.status_code)
+        return "Cannot create: Interface loopback 66070119"
+    elif(resp.status_code >= 200 and resp.status_code <= 299):
         print("STATUS OK: {}".format(resp.status_code))
         return "Interface loopback 66070119 is created successfully"
     else:
@@ -61,6 +63,9 @@ def delete():
     if(resp.status_code >= 200 and resp.status_code <= 299):
         print("STATUS OK: {}".format(resp.status_code))
         return "Interface loopback 66070119 is deleted successfully"
+    elif(resp.status_code == 404):
+        print(resp.status_code)
+        return "Cannot delete: Interface loopback 66070119"
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
 
@@ -85,6 +90,9 @@ def enable():
     if(resp.status_code >= 200 and resp.status_code <= 299):
         print("STATUS OK: {}".format(resp.status_code))
         return "Interface loopback 66070119 is enabled successfully"
+    elif(resp.status_code == 404):
+        print(resp.status_code)
+        return "Cannot enable: Interface loopback 66070119"
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
 
@@ -109,6 +117,9 @@ def disable():
     if(resp.status_code >= 200 and resp.status_code <= 299):
         print("STATUS OK: {}".format(resp.status_code))
         return "Interface loopback 66070119 is shutdowned successfully"
+    elif(resp.status_code == 404):
+        print(resp.status_code)
+        return "Cannot shutdown: Interface loopback 66070119"
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
 
