@@ -1,33 +1,15 @@
----
-- name: AUTOMATIC BACKUP OF RUNNING-CONFIG
-  hosts: CSR1kv
-  gather_facts: false
-  connection: local
-  
+- name: Collect running-config and save to local file
+  hosts: routers
+  gather_facts: no
   tasks:
-    - name: DISPLAYING THE RUNNING-CONFIG
-      ios_command:
+    - name: Get running-config
+      cisco.ios.ios_command:
         commands:
-          - show running-config  
-      register: config
+          - show running-config
+      register: runout
 
-    - name: Ensure backup directory exists
-      ansible.builtin.file:
-        path: backups
-        state: directory
-
-    - name: SAVE OUTPUT TO ./backups/
-      copy:
-        content: "{{ config.stdout[0] }}"
-        dest: "backups/show_run_{{ inventory_hostname }}.txt"
-      when: config.stdout | length > 0  # Ensure there is output before saving
-
-    - name: DISPLAY SUCCESS MESSAGE
-      debug:
-        msg: "Backup of {{ inventory_hostname }} completed successfully."
-      when: config.stdout | length > 0  # Show message only if there was output
-
-    - name: HANDLE FAILURE
-      debug:
-        msg: "Failed to retrieve running configuration from {{ inventory_hostname }}"
-      when: config.stdout | length == 0  # Show message if no output
+    - name: Save running-config to local file
+      delegate_to: localhost
+      ansible.builtin.copy:
+        content: "{{ runout.stdout[0] }}"
+        dest: "./show_run_66070119_R1-Exam.txt"

@@ -1,20 +1,17 @@
 import subprocess
 
-def showrun(student_id, router_name):
-    command = ['ansible-playbook', 'C:/Users/LAB306_XX/Documents/GitHub/IPA2024-Final/playbook.yaml']
+def showrun():
+    command = ['ansible-playbook', 'playbook.yaml']
     result = subprocess.run(command, capture_output=True, text=True)
+    print("=== Ansible stdout ===")
+    print(result.stdout)
+    print("=== Ansible stderr ===")
+    print(result.stderr)
     
-    
-    print("Standard Output:\n", result.stdout)
-    print("Standard Error:\n", result.stderr)
-    
-    
-    if result.returncode == 0:  # Ansible success returns 0
-        return f'show_run_{student_id}_{router_name}.txt'
-    else:
-        return 'Error: Ansible'
+    if result.returncode != 0:
+        return f"Error: Ansible failed with code {result.returncode}"
 
-student_id = '66070119'
-router_name = 'R1-Exam'
-output_file = showrun(student_id, router_name)
-print(output_file)
+    if 'ok=2' in result.stdout or 'ok=1' in result.stdout:
+        return 'show_run_66070119_R1-Exam.txt'
+    else:
+        return 'Error: Ansible output unexpected'
